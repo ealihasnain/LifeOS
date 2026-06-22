@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#221c14">
+<title>LifeOS User Guide</title>
+<meta name="description" content="Complete user guide for LifeOS: setup, daily planning, tasks, filters, trackers, alarms, health logging, backup, recovery and troubleshooting.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700;800&display=swap');
+:root{
+  --bg:#e9e3d8;--surface:#f2ece0;--card:#fbf7ef;--card-2:#ede7da;--text:#19140f;
+  --text-2:#65584b;--text-3:#907f6f;--border:#d4cabd;--border-2:#e2d8cb;
+  --nav:#221c14;--nav-2:#30271d;--blue:#346aa0;--blue-h:#285783;--blue-s:rgba(52,106,160,.11);
+  --green:#327b50;--green-s:rgba(50,123,80,.12);--amber:#b5672a;--amber-s:rgba(181,103,42,.13);
+  --red:#a83838;--red-s:rgba(168,56,56,.11);--shadow:0 3px 12px rgba(28,18,8,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{font-family:'Anek Latin','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}.topbar{position:sticky;top:0;z-index:100;min-height:58px;background:var(--nav);border-bottom:1px solid #3b2f22;display:flex;align-items:center;gap:12px;padding:8px 18px;color:#f4eadb}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}.brand-mark{width:32px;height:32px;border-radius:8px;background:var(--blue);display:grid;place-items:center;color:#fff;font-weight:900}.brand-copy strong{display:block;font-size:14px;line-height:1.05}.brand-copy span{display:block;font-size:10px;color:#b8aa96;letter-spacing:.06em;text-transform:uppercase}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:8px}.back-btn,.print-btn{height:36px;padding:0 12px;border:1px solid #4a3c2d;border-radius:9px;background:var(--nav-2);color:#f4eadb;text-decoration:none;font:inherit;font-weight:800;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.back-btn:hover,.print-btn:hover{background:#3a2f23}
+.guide-search{flex:1;max-width:460px;position:relative}.guide-search input{width:100%;height:38px;border:1px solid #4a3c2d;border-radius:9px;background:#2b231b;color:#fff;padding:0 38px 0 12px;font:inherit;outline:none}.guide-search input:focus{border-color:#6f9ac5;box-shadow:0 0 0 3px rgba(52,106,160,.25)}.guide-search input::placeholder{color:#a99a86}.guide-search button{position:absolute;right:5px;top:5px;width:28px;height:28px;border:0;border-radius:7px;background:transparent;color:#cdbda8;font-size:18px;cursor:pointer}
+.layout{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;padding:20px 24px 70px}.toc{position:sticky;top:78px;align-self:start;max-height:calc(100vh - 96px);overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:var(--shadow)}.toc-title{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:var(--text-3);padding:3px 8px 8px}.toc a{display:block;padding:7px 9px;border-radius:8px;text-decoration:none;color:var(--text-2);font-size:12.5px;font-weight:750}.toc a:hover,.toc a.active{background:var(--blue-s);color:var(--blue)}.toc .toc-sub{padding-left:20px;font-size:12px;font-weight:650}
+.mobile-toc{display:none;margin:12px 14px 0}.mobile-toc select{width:100%;height:42px;border:1px solid var(--border);border-radius:10px;background:var(--card);padding:0 10px;font:inherit;font-weight:800;color:var(--text)}
+.content{min-width:0}.hero{background:linear-gradient(135deg,rgba(52,106,160,.14),rgba(181,103,42,.10)),var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:var(--shadow);margin-bottom:16px}.kicker{font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}h1{font-size:36px;line-height:1.04;letter-spacing:-.045em;margin-top:6px}.lead{max-width:900px;margin-top:12px;color:var(--text-2);font-size:16px}.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}.badge{padding:4px 9px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.45);font-size:11.5px;font-weight:800;color:var(--text-2)}
+.notice{border:1px solid rgba(181,103,42,.28);border-radius:12px;background:var(--amber-s);padding:12px 14px;margin-top:14px;color:var(--text-2)}.notice strong{color:var(--text)}.notice.danger{border-color:rgba(168,56,56,.25);background:var(--red-s)}.notice.good{border-color:rgba(50,123,80,.26);background:var(--green-s)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin:0 0 14px;box-shadow:0 1px 5px rgba(28,18,8,.06)}.section.hidden-by-search{display:none}.section h2{font-size:23px;letter-spacing:-.025em;line-height:1.15;margin-bottom:6px}.section-intro{color:var(--text-2);margin-bottom:14px}.section h3{font-size:16px;margin:18px 0 7px}.section h4{font-size:14px;margin:14px 0 5px}.section p{color:var(--text-2);margin:6px 0}.section ul,.section ol{padding-left:22px;color:var(--text-2);display:grid;gap:5px;margin:7px 0}.section li strong{color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}.card{border:1px solid var(--border-2);border-radius:12px;background:var(--card-2);padding:13px}.card h3,.card h4{margin:0 0 5px}.card p{font-size:13px;margin:0}.steps{counter-reset:step;display:grid;gap:9px;margin:10px 0}.step{counter-increment:step;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start;border:1px solid var(--border-2);border-radius:11px;background:var(--card-2);padding:10px}.step:before{content:counter(step);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:900}.step strong{display:block;margin-bottom:2px}.step span{color:var(--text-2);font-size:13px}
+.scenario{border-left:4px solid var(--blue);border-radius:10px;background:var(--blue-s);padding:12px 14px;margin:10px 0}.scenario strong{display:block;margin-bottom:3px}.scenario p{font-size:13px;margin:0}.kbd{display:inline-block;border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;background:#fff;padding:1px 6px;font-family:ui-monospace,Consolas,monospace;font-size:11px;color:var(--text)}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:11px;margin:10px 0}table{border-collapse:collapse;width:100%;min-width:640px;background:var(--card)}th,td{padding:9px 10px;border-bottom:1px solid var(--border-2);text-align:left;vertical-align:top;font-size:12.5px}th{background:var(--card-2);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-3)}td{color:var(--text-2)}td strong{color:var(--text)}tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Consolas,monospace;background:var(--card-2);border:1px solid var(--border-2);border-radius:5px;padding:1px 5px;color:var(--text);font-size:12px}.no-results{display:none;border:1px dashed var(--border);border-radius:14px;background:var(--card);padding:24px;text-align:center;color:var(--text-2)}.footer{text-align:center;color:var(--text-3);font-size:12px;padding:12px 0 30px}.footer a{color:var(--blue)}
+@media(max-width:900px){.layout{grid-template-columns:1fr;padding:14px 14px 60px}.toc{display:none}.mobile-toc{display:block}.topbar{flex-wrap:wrap}.guide-search{order:3;flex-basis:100%;max-width:none}.hero{padding:21px}h1{font-size:29px}.grid{grid-template-columns:1fr}.top-actions .print-btn{display:none}}
+@media(max-width:560px){.topbar{padding:8px 10px}.brand-copy span{display:none}.back-btn{padding:0 9px}.section{padding:17px}.section h2{font-size:20px}.hero{padding:18px}.lead{font-size:14px}.layout{padding-left:10px;padding-right:10px}.mobile-toc{margin-left:10px;margin-right:10px}}
+@media print{.topbar,.toc,.mobile-toc,.footer{display:none!important}.layout{display:block;padding:0}.section,.hero{box-shadow:none;break-inside:avoid}.section{border-color:#bbb}body{background:#fff}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./index.html#about" aria-label="Back to LifeOS">
+    <span class="brand-mark">L</span><span class="brand-copy"><strong>LifeOS</strong><span>User guide</span></span>
+  </a>
+  <div class="guide-search"><input id="guideSearch" type="search" placeholder="Search the guide: filters, alarms, backup…" autocomplete="off"><button id="clearSearch" type="button" aria-label="Clear search">×</button></div>
+  <div class="top-actions"><button class="print-btn" type="button" onclick="window.print()">Print / PDF</button><a class="back-btn" href="./index.html#about">← Back to app</a></div>
+</header>
+<div class="mobile-toc"><select id="mobileToc" aria-label="Jump to a guide section"></select></div>
+<div class="layout">
+<aside class="toc" id="toc"><div class="toc-title">Contents</div></aside>
+<main class="content">
+<section class="hero" id="top" data-title="Guide overview">
+  <div class="kicker">LifeOS v2.10.82</div>
+  <h1>Complete user guide</h1>
+  <p class="lead">LifeOS is a personal operating system for designing an ideal day, executing it, recording what actually happened, and improving the system with evidence instead of relying on memory or motivation.</p>
+  <div class="badges"><span class="badge">Installable PWA</span><span class="badge">Works offline after first load</span><span class="badge">Data stored on this device</span><span class="badge">Manual JSON backup</span></div>
+  <div class="notice danger"><strong>Critical data rule:</strong> LifeOS does not yet have accounts or cloud sync. Your phone and computer hold separate data. Export a JSON backup before clearing browser data, uninstalling the app, changing phones, or importing a major dataset.</div>
+</section>
+<div class="no-results" id="noResults"><strong>No guide section matched your search.</strong><br>Try a broader term such as “task”, “filter”, “backup”, “alarm” or “English”.</div>
+
+<section class="section" id="quick-start" data-title="Quick start">
+<h2>1. Quick start</h2><p class="section-intro">Use this sequence the first time. Do not configure every possible feature before testing a real day.</p>
+<div class="steps">
+  <div class="step"><div><strong>Set up your profile and default week</strong><span>Enter the information needed for planning estimates and classify weekdays as Workday, WFH or Off-Day.</span></div></div>
+  <div class="step"><div><strong>Review starter tags and rules</strong><span>Keep the useful ones, rename or reorder them, and delete noise.</span></div></div>
+  <div class="step"><div><strong>Create only tomorrow’s essential tasks</strong><span>Start with 8–15 tasks. Add times, tags, priority, recurrence and alarms only where they matter.</span></div></div>
+  <div class="step"><div><strong>Execute from the Today page</strong><span>Mark tasks done or skipped, use progress controls, and record actual quantities or measurements.</span></div></div>
+  <div class="step"><div><strong>Review at day-end</strong><span>Check completion, skipped tasks, nutrition totals, time use and the gap between the planned and actual day.</span></div></div>
+  <div class="step"><div><strong>Export a backup</strong><span>Once your configuration is stable, create a JSON backup and store it outside the browser.</span></div></div>
+</div>
+<div class="scenario"><strong>Best first-day test</strong><p>Create a morning medicine task, a 20-minute walk, one work priority, dinner before a target time, and one learning task. Use the app for a full day before adding more complexity.</p></div>
+</section>
+
+<section class="section" id="navigation" data-title="Navigation and modules">
+<h2>2. Navigation and modules</h2><p class="section-intro">The top navigation contains the core planner and optional personal-development modules.</p>
+<div class="grid">
+  <div class="card"><h3>Ideal Day</h3><p>The operational center: calendar, tasks, filters, progress, trackers, totals and libraries.</p></div>
+  <div class="card"><h3>Modules</h3><p>Show or hide optional areas. Core pages remain enabled so the app and its safety controls stay accessible.</p></div>
+  <div class="card"><h3>English Lab</h3><p>Build reusable communication assets through phrases, roleplay, stories, networking and self-presentation.</p></div>
+  <div class="card"><h3>Changelog and About</h3><p>Review product evolution, limitations, installation guidance and this full guide.</p></div>
+</div>
+<p>On mobile, use the hamburger menu to open navigation. Hiding a module does not automatically delete its data; it removes the module from normal navigation.</p>
+</section>
+
+<section class="section" id="calendar-day-types" data-title="Calendar and day types">
+<h2>3. Calendar and day types</h2><p class="section-intro">The selected date controls which task occurrences and daily records you are viewing.</p>
+<h3>Selecting a date</h3><p>Use the left calendar on desktop or the calendar/panel control on mobile. The Today button returns to the current date.</p>
+<h3>Workday, WFH and Off-Day</h3><p>Each date can follow the default weekly pattern or receive a manual category. Task and alarm rules can behave differently for each category:</p>
+<div class="table-wrap"><table><thead><tr><th>Behavior</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td><strong>Active</strong></td><td>The task appears and is expected on that day type.</td><td>Office commute on a Workday.</td></tr>
+<tr><td><strong>Auto-skip</strong></td><td>The occurrence is automatically treated as skipped when the day type makes it irrelevant.</td><td>Commute on WFH.</td></tr>
+<tr><td><strong>Hidden / inactive</strong></td><td>The occurrence is not presented as an active task.</td><td>Office-only meeting preparation on an Off-Day.</td></tr>
+</tbody></table></div>
+<div class="scenario"><strong>Scenario: unexpected work from home</strong><p>Change today from Workday to WFH. Commute-related tasks can auto-skip, while exercise, medication and work priorities remain active.</p></div>
+</section>
+
+<section class="section" id="creating-tasks" data-title="Creating and editing tasks">
+<h2>4. Creating and editing tasks</h2><p class="section-intro">A task can be simple or structured. Add only the fields that improve execution or later analysis.</p>
+<h3>Basic fields</h3><ul>
+<li><strong>Title:</strong> write a clear action, not a vague theme.</li><li><strong>Description:</strong> include useful context, standards or a definition of done.</li><li><strong>Time:</strong> use when sequence or punctuality matters.</li><li><strong>Priority:</strong> reserve higher priority for genuinely consequential work.</li><li><strong>Tags:</strong> connect the task to life areas such as health, family, career or finance.</li></ul>
+<h3>Repeat and day behavior</h3><p>Configure recurrence for routines and use day-type behavior to prevent irrelevant occurrences. One-time tasks should not be disguised as permanent routines.</p>
+<h3>Task actions</h3><p>Edit to change the underlying task, duplicate to reuse its structure, and delete carefully. When prompted, distinguish between deleting one occurrence and deleting the repeating task or series.</p>
+<div class="notice"><strong>Good task:</strong> “Walk 20 minutes after dinner.” <strong>Weak task:</strong> “Health.” The first can be executed and measured; the second cannot.</div>
+</section>
+
+<section class="section" id="task-status" data-title="Task status, next task and overdue logic">
+<h2>5. Task status, next task and overdue logic</h2>
+<div class="grid">
+<div class="card"><h3>Done</h3><p>Use when the expected occurrence was completed. Add progress or measurements first where relevant.</p></div>
+<div class="card"><h3>Skipped</h3><p>Use when it was deliberately not completed. Skipping is data; do not mark a task done merely to clean the list.</p></div>
+<div class="card"><h3>Next task</h3><p>Highlights the next actionable item according to the app’s sequence and status logic.</p></div>
+<div class="card"><h3>Overdue</h3><p>A past scheduled time can visually de-emphasize or mark an unfinished task as overdue.</p></div>
+</div>
+<p>Use status honestly. A truthful skipped record is more useful than a fake completion because later review depends on the integrity of the data.</p>
+</section>
+
+<section class="section" id="filters" data-title="Filters and task search">
+<h2>6. Filters and task search</h2><p class="section-intro">Filters work together as multiple levels. They should narrow the same task list rather than override one another.</p>
+<ul><li><strong>Text:</strong> matches task titles and relevant text.</li><li><strong>Status:</strong> narrows by states such as pending, done, skipped, overdue or next task.</li><li><strong>Tag:</strong> limits the list to one or more life areas.</li></ul>
+<p>On mobile, tap the filter button in the date row to show or hide the filter panel. Applying a filter should not permanently alter tasks; it changes only what is currently visible.</p>
+<div class="scenario"><strong>Scenario: find unfinished health tasks</strong><p>Select the Health/Fitness tag, choose the pending status, then type “walk” or “medicine”. All conditions should apply simultaneously.</p></div>
+</section>
+
+<section class="section" id="tags" data-title="Tags and tag progress">
+<h2>7. Tags and tag progress</h2><p class="section-intro">Tags group tasks into life areas and feed the progress summary.</p>
+<h3>Creating and editing</h3><p>Choose a name, icon and color. Avoid overlapping categories such as “Work”, “Career” and “Office” unless each has a deliberate distinction.</p>
+<h3>Reordering</h3><p>Drag tags to change their order. Use the drop indicator to see where a tag will land. Reordering should not reset the panel’s scroll position.</p>
+<h3>Progress</h3><p>The progress panel summarizes completion and scheduled time by tag. Treat it as a signal, not a score to maximize blindly.</p>
+</section>
+
+<section class="section" id="progress-trackers" data-title="Progress, quantities and measurements">
+<h2>8. Progress, quantities and measurements</h2><p class="section-intro">Not every task is binary. LifeOS supports more detailed evidence where “done” alone would hide useful information.</p>
+<div class="grid">
+<div class="card"><h3>Step progress</h3><p>Use incremental controls for tasks completed in several units or stages.</p></div>
+<div class="card"><h3>Quantity tracking</h3><p>Record amounts such as glasses, pages, repetitions, minutes or servings.</p></div>
+<div class="card"><h3>Measurement tracking</h3><p>Record structured values such as blood pressure components, glucose, weight or other configured measures.</p></div>
+<div class="card"><h3>Occurrence notes and rating</h3><p>Add context or a quality rating when the result matters beyond simple completion.</p></div>
+</div>
+<div class="notice danger"><strong>Health warning:</strong> LifeOS records and summarizes information; it does not diagnose illness or replace professional medical advice.</div>
+</section>
+
+<section class="section" id="timers" data-title="Time tracking and focus timer">
+<h2>9. Time tracking and focus timer</h2><p class="section-intro">Use the timer for work where actual duration matters.</p>
+<h3>Starting and minimizing</h3><p>Start the task timer from its action controls. The full-screen focus view can be minimized to a floating timer while you continue using the app.</p>
+<h3>Background limitation</h3><p>Mobile browsers may suspend the page when the app is closed or the screen is off. A robust timer should calculate elapsed time from saved timestamps when LifeOS resumes rather than depend on a JavaScript counter running every second.</p>
+<div class="notice"><strong>Practical rule:</strong> Closing LifeOS should not be treated as guaranteed continuous background execution. Reopen the app and verify the timer before relying on it for formal billing or compliance records.</div>
+</section>
+
+<section class="section" id="alarms" data-title="Alarms and reminders">
+<h2>10. Alarms and reminders</h2><p class="section-intro">A task can have one or more alarms, each with its own time, label, enabled state, repeat setting and day-type behavior.</p>
+<h3>While LifeOS is open</h3><p>The alarm engine can show an in-app alert and use available sound/notification behavior.</p>
+<h3>When LifeOS is closed</h3><p>A browser-based PWA cannot guarantee exact alarm delivery after Android suspends it. Exact closed-app alarms require web push infrastructure or a native Android layer.</p>
+<h3>Missed alarm handling</h3><p>When reopening the app, review missed or overdue items rather than assuming every scheduled alert fired in the background.</p>
+</section>
+
+<section class="section" id="templates" data-title="Templates and repeatable routines">
+<h2>11. Templates and repeatable routines</h2><p class="section-intro">Templates let you reuse a proven day or task structure without rebuilding it manually.</p>
+<ul><li>Create templates from stable routines, not temporary experiments.</li><li>Review times and recurrence after applying a template.</li><li>Do not duplicate the same repeating task through both a template and an existing recurrence.</li><li>Keep separate patterns for materially different days, such as office, WFH and off-day routines.</li></ul>
+</section>
+
+<section class="section" id="food" data-title="Food library and nutrition totals">
+<h2>12. Food library and nutrition totals</h2><p class="section-intro">The food library supports meal logging and daily totals for calories, macronutrients, sugar, added/free sugar, salt and fiber.</p>
+<h3>Logging food</h3><p>Select an item, enter the amount and verify the unit. Packaged and homemade foods vary, so edit or create entries when the starter estimate is materially wrong.</p>
+<h3>Interpreting totals</h3><p>Total sugar can be high even when added sugar is zero because fruit, milk and other foods contain naturally occurring sugar. Juice sugar is tracked differently from intact fruit because processing changes how it is consumed.</p>
+<h3>Red warnings</h3><p>Red or warning states indicate that a configured or reference threshold has been exceeded. They are prompts for review, not a medical diagnosis.</p>
+<div class="scenario"><strong>Scenario: “No added sugar” but total sugar is high</strong><p>Check fruit portions, juice, milk and yogurt. Zero table sugar does not automatically mean low total carbohydrate or low total sugar.</p></div>
+</section>
+
+<section class="section" id="workouts" data-title="Workout library and exercise logging">
+<h2>13. Workout library and exercise logging</h2><p class="section-intro">Use the workout library to standardize repeatable exercise actions and connect them to daily execution.</p>
+<ul><li>Create clear workout entries with duration, sets, repetitions or intensity where useful.</li><li>Use task progress to record actual output, not just intent.</li><li>Increase exercise load gradually and account for medical limitations.</li><li>Use weekly patterns rather than forcing the same workout every day.</li></ul>
+</section>
+
+<section class="section" id="profile" data-title="Profile and health planning estimates">
+<h2>14. Profile and planning estimates</h2><p class="section-intro">The profile can calculate screening and planning estimates such as BMI, resting energy, maintenance calories, macro ranges and exercise baselines.</p>
+<p>These calculations depend on the quality of entered data and use general formulas. They can be wrong for individuals with unusual body composition, pregnancy, breastfeeding, kidney disease, heart disease or other conditions requiring individualized targets.</p>
+<div class="notice danger"><strong>Do not use LifeOS to change prescribed medication or replace a clinician’s plan.</strong> Use it to organize habits, record observations and prepare better questions for professionals.</div>
+</section>
+
+<section class="section" id="rules" data-title="Life rules">
+<h2>15. Life rules</h2><p class="section-intro">Rules are standing principles that guide repeated decisions without becoming scheduled tasks themselves.</p>
+<h3>Good rule examples</h3><ul><li>Do not delay high-impact customer escalations beyond the same working day.</li><li>Export a LifeOS backup before any major import or browser reset.</li><li>Do not use screen time during family dinner.</li></ul>
+<h3>Weak rule examples</h3><p>“Be better” and “work hard” are too vague. A useful rule should alter a specific decision or behavior.</p>
+<p>Rules can be reordered. Keep the list short enough that you can actually remember and apply it.</p>
+</section>
+
+<section class="section" id="english-lab" data-title="English Lab">
+<h2>16. English Lab</h2><p class="section-intro">English Lab is an output-focused practice system. Passive listening alone is not counted as evidence of improvement.</p>
+<div class="table-wrap"><table><thead><tr><th>Area</th><th>Purpose</th><th>Useful output</th></tr></thead><tbody>
+<tr><td><strong>Dashboard</strong></td><td>Shows weekly output and progress signals.</td><td>Review gaps before planning the next week.</td></tr>
+<tr><td><strong>Phrase Bank</strong></td><td>Stores useful expressions by context and status.</td><td>Mark a phrase used after applying it in real communication.</td></tr>
+<tr><td><strong>Roleplay Lab</strong></td><td>Practices difficult workplace conversations.</td><td>Record scenario, score, mistakes and a stronger version.</td></tr>
+<tr><td><strong>Story Vault</strong></td><td>Builds evidence-based career stories.</td><td>Create STAR/CAR stories from real work.</td></tr>
+<tr><td><strong>Networking</strong></td><td>Tracks relationships and concrete follow-up actions.</td><td>Log a meaningful interaction or next action.</td></tr>
+<tr><td><strong>Self-Presentation</strong></td><td>Builds concise and longer answers about your career and leadership.</td><td>Practice a 60-second and two-minute version.</td></tr>
+</tbody></table></div>
+<div class="scenario"><strong>Scenario: Director interview preparation</strong><p>Build three career stories, run a hostile stakeholder roleplay, improve “Tell me about yourself”, and schedule the practice actions in Ideal Day.</p></div>
+</section>
+
+<section class="section" id="optional-modules" data-title="Optional modules and placeholders">
+<h2>17. Optional modules and placeholders</h2><p class="section-intro">Professional Database, Learning Log, Journal and Frameworks may appear as optional areas depending on the current build.</p>
+<p>Some are foundations or placeholders rather than fully mature modules. Do not treat their presence in navigation as proof that every workflow is complete. Enable only what contributes to daily use.</p>
+</section>
+
+<section class="section" id="backup" data-title="Export, import and backup safety">
+<h2>18. Export, import and backup safety</h2><p class="section-intro">Backup is not optional because current LifeOS data lives in browser storage.</p>
+<h3>Export</h3><p>Export a JSON backup regularly and store copies outside the device—for example in a private cloud drive and a computer folder.</p>
+<h3>Import using Merge</h3><p>Merge attempts to combine imported records with existing data. Use it when you want to add or reconcile records without intentionally wiping the current database.</p>
+<h3>Import using Replace</h3><p>Replace overwrites the relevant current LifeOS data with the imported package. Use only when the backup is known to be complete and correct.</p>
+<h3>Undo import</h3><p>LifeOS can retain a pre-import snapshot for recovery. Use Undo promptly if an import produces the wrong result.</p>
+<div class="steps">
+<div class="step"><div><strong>Export first</strong><span>Create a fresh backup before any Merge or Replace operation.</span></div></div>
+<div class="step"><div><strong>Inspect the selected file</strong><span>Confirm it is the intended LifeOS JSON backup, not an older or unrelated file.</span></div></div>
+<div class="step"><div><strong>Choose Merge or Replace deliberately</strong><span>Do not click through the choice without understanding the difference.</span></div></div>
+<div class="step"><div><strong>Verify counts and critical records</strong><span>Open Diagnostics and manually inspect representative tasks, tags, logs and settings.</span></div></div>
+</div>
+</section>
+
+<section class="section" id="diagnostics" data-title="Diagnostics and data checks">
+<h2>19. Diagnostics and data checks</h2><p class="section-intro">Diagnostics helps confirm what is stored and whether critical datasets are present.</p>
+<ul><li>Review record counts before and after an import.</li><li>Check that tasks, logs, tags, settings and English Lab records have plausible counts.</li><li>Investigate sudden zero counts or unexpected duplication.</li><li>Do not dismiss storage warnings without understanding the cause.</li></ul>
+</section>
+
+<section class="section" id="install-update" data-title="Installation and updates">
+<h2>20. Installation and updates</h2>
+<h3>Install on Android</h3><ol><li>Open the GitHub Pages URL in Chrome.</li><li>Use the browser menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li><li>Launch LifeOS from the new home-screen icon.</li></ol>
+<h3>Receiving a new version</h3><p>After a GitHub deployment, reopen or refresh LifeOS. The service worker downloads the new app files and removes older LifeOS caches when the new worker activates.</p>
+<h3>If an old version remains</h3><ol><li>Export a backup first.</li><li>Close all LifeOS tabs and the installed app.</li><li>Reopen and refresh.</li><li>Only as a last resort, clear site data—this can delete local LifeOS records.</li></ol>
+</section>
+
+<section class="section" id="offline-background" data-title="Offline use and background limits">
+<h2>21. Offline use and background limits</h2>
+<h3>Offline</h3><p>After a successful online load, the app shell and this guide are cached. Most local features can continue without internet, but external fonts and any future server-based features may not.</p>
+<h3>Background</h3><p>Android may suspend LifeOS after you leave it or turn off the screen. A service worker is event-driven, not a permanently running process. Exact alarm delivery and continuous background logic are not guaranteed in the current PWA architecture.</p>
+<h3>Separate devices</h3><p>Phone and computer data do not synchronize automatically. Export/import is currently the controlled way to move data, but careless merging can produce duplicates.</p>
+</section>
+
+<section class="section" id="troubleshooting" data-title="Troubleshooting">
+<h2>22. Troubleshooting</h2>
+<div class="table-wrap"><table><thead><tr><th>Symptom</th><th>Likely area</th><th>Action</th></tr></thead><tbody>
+<tr><td><strong>App feels frozen</strong></td><td>Heavy rendering, repeated timers, large local data or a JavaScript error.</td><td>Record exactly what action triggered it, reopen the app, test with filters cleared, and preserve a backup before deeper troubleshooting.</td></tr>
+<tr><td><strong>Filter panel disappears</strong></td><td>Mobile UI state or rerender behavior.</td><td>Tap the filter control again; document the exact filter combination if the state is lost.</td></tr>
+<tr><td><strong>Typed search loses focus</strong></td><td>Input is being recreated during rerender.</td><td>Report the page, device and action; avoid repeated typing until the specific render path is fixed.</td></tr>
+<tr><td><strong>Old app version</strong></td><td>Service-worker cache lifecycle.</td><td>Close all instances, reopen and refresh. Do not clear storage before exporting.</td></tr>
+<tr><td><strong>Alarm did not fire when closed</strong></td><td>Mobile background suspension.</td><td>Do not rely on PWA alarms as guaranteed native alarms.</td></tr>
+<tr><td><strong>Data missing on another device</strong></td><td>No cloud sync.</td><td>Use a verified JSON export/import workflow.</td></tr>
+<tr><td><strong>App does not install</strong></td><td>Wrong URL, stale manifest/service worker or unsupported browser state.</td><td>Use the HTTPS GitHub Pages URL in Chrome, refresh, then check Install app/Add to Home screen.</td></tr>
+</tbody></table></div>
+<h3>How to report a reproducible bug</h3><ol><li>State the exact page and device.</li><li>List the steps from a fresh app opening.</li><li>Describe expected versus actual behavior.</li><li>Include whether the problem survives restart.</li><li>Attach a backup only if it contains no data you are unwilling to share.</li></ol>
+</section>
+
+<section class="section" id="daily-workflows" data-title="Practical daily workflows">
+<h2>23. Practical workflows</h2>
+<div class="scenario"><strong>Morning execution</strong><p>Open Today, confirm the day category, check the Next Task, complete medicine/hygiene/breakfast records, and avoid browsing the whole system before beginning.</p></div>
+<div class="scenario"><strong>Workday control</strong><p>Filter to Career + Pending, start the highest-value task timer, record progress honestly, then clear filters to return to the full day.</p></div>
+<div class="scenario"><strong>Health review</strong><p>Log meals and measurements, check total sugar/salt rather than only added sugar, and export useful records for a clinician instead of self-adjusting medication.</p></div>
+<div class="scenario"><strong>Evening review</strong><p>Mark genuine completions and skips, add occurrence notes where the reason matters, review tag balance, and change tomorrow’s system only when the evidence supports it.</p></div>
+<div class="scenario"><strong>Weekly review</strong><p>Export a backup, inspect repeated skips, remove low-value tasks, review English Lab output and adjust the default week or templates.</p></div>
+</section>
+
+<section class="section" id="principles" data-title="Operating principles">
+<h2>24. Operating principles</h2><ul>
+<li><strong>Truth over appearance:</strong> accurate skips are more valuable than fake completion.</li>
+<li><strong>System over motivation:</strong> fix recurring friction instead of blaming willpower.</li>
+<li><strong>Minimum useful complexity:</strong> configure only what improves action or insight.</li>
+<li><strong>Backup before risk:</strong> export before imports, resets and major updates.</li>
+<li><strong>Health humility:</strong> record and organize; do not diagnose.</li>
+<li><strong>Review before expansion:</strong> prove daily value before adding more modules.</li>
+</ul>
+<div class="notice good"><strong>The correct success metric:</strong> LifeOS is useful when it improves real decisions and execution. More tasks, more logs and more modules do not automatically mean a better system.</div>
+</section>
+
+<div class="footer">LifeOS user guide · <a href="./index.html#about">Return to LifeOS</a> · Data remains local to the current browser unless exported.</div>
+</main>
+</div>
+<script>
+(() => {
+  const sections=[...document.querySelectorAll('.section')];
+  const toc=document.getElementById('toc');
+  const mobile=document.getElementById('mobileToc');
+  sections.forEach((section,index)=>{
+    const title=section.dataset.title||section.querySelector('h2')?.textContent||`Section ${index+1}`;
+    const a=document.createElement('a');a.href=`#${section.id}`;a.textContent=title;toc.appendChild(a);
+    const option=document.createElement('option');option.value=section.id;option.textContent=title;mobile.appendChild(option);
+  });
+  mobile.addEventListener('change',()=>document.getElementById(mobile.value)?.scrollIntoView({behavior:'smooth'}));
+  const links=[...toc.querySelectorAll('a')];
+  const observer=new IntersectionObserver(entries=>{
+    const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${visible.target.id}`));mobile.value=visible.target.id;
+  },{rootMargin:'-80px 0px -65% 0px',threshold:[0,.1,.4]});
+  sections.forEach(s=>observer.observe(s));
+  const search=document.getElementById('guideSearch'),noResults=document.getElementById('noResults');
+  function applySearch(){
+    const q=search.value.trim().toLowerCase();let shown=0;
+    sections.forEach(s=>{const match=!q||s.textContent.toLowerCase().includes(q)||(s.dataset.title||'').toLowerCase().includes(q);s.classList.toggle('hidden-by-search',!match);if(match)shown++;});
+    noResults.style.display=shown?'none':'block';
+  }
+  search.addEventListener('input',applySearch);
+  document.getElementById('clearSearch').addEventListener('click',()=>{search.value='';applySearch();search.focus();});
+  if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+})();
+</script>
+</body>
+</html>

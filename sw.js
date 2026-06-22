@@ -1,7 +1,8 @@
-const CACHE_NAME = 'lifeos-v2.10.81-pwa-1';
+const CACHE_NAME = 'lifeos-v2.10.82-guide-1';
 const APP_SHELL = [
   './',
   './index.html',
+  './guide.html',
   './manifest.webmanifest',
   './icons/favicon-32.png',
   './icons/apple-touch-icon.png',
@@ -34,16 +35,23 @@ self.addEventListener('fetch', (event) => {
 
   const requestURL = new URL(event.request.url);
 
-  // Navigations prefer the latest deployment, then fall back to the cached app.
+  // Navigations prefer the latest deployment and cache each page under its own URL.
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
+          if (response && response.ok && requestURL.origin === self.location.origin) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
           return response;
         })
-        .catch(() => caches.match('./index.html'))
+        .catch(async () => {
+          const exact = await caches.match(event.request);
+          if (exact) return exact;
+          const isGuide = requestURL.pathname.endsWith('/guide.html');
+          return caches.match(isGuide ? './guide.html' : './index.html');
+        })
     );
     return;
   }

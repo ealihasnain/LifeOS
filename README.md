@@ -56,3 +56,7 @@ LifeOS currently stores user data in the browser's localStorage. Hosting the cod
 ## Updating later
 
 Replace `index.html` with the next tested LifeOS version, preserve the PWA files, and update the cache name in `sw.js` so installed copies refresh cleanly. Then commit and push again.
+
+## User guide
+
+The deployed package includes `guide.html`, linked from the in-app About page. It covers setup, task management, filters, progress tracking, alarms, food and workout logging, English Lab, backups, recovery, offline behavior and troubleshooting.
